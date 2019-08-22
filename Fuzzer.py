@@ -24,10 +24,7 @@ while True:
         s.close()
         buffer = buffer + "A" * 100
         print(len(buffer))
-    except TimeoutError:
-        print(e)
-        continue
-    except ConnectionRefusedError:
+    except Exception as e:
         print(e)
         print(f"Fuzzing crashed at: {len(buffer)}")
         sys.exit()
