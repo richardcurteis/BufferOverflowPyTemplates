@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 
 import socket
 import sys
@@ -26,5 +26,5 @@ while True:
         print(len(buffer))
     except Exception as e:
         print(e)
-        print("Fuzzing crashed at: {}".format(len(buffer)))
+        print(f"Fuzzing crashed at: {len(buffer)}")
         sys.exit()
