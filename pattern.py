@@ -52,8 +52,9 @@ def create_pattern(length):
     return pattern
     
 def find_offset(length, query):
-    return create_pattern(length).find(bytearray.fromhex(query)[::-1])
-    
+    #return create_pattern(length).find(bytearray.fromhex(query)[::-1])
+    return create_pattern(length).find(query)
+
 def extend_pattern(pattern, upper, lower, integer):
     return pattern + upper.capitalize() + lower + str(integer)
 

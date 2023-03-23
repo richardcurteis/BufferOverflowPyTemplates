@@ -20,7 +20,7 @@ CMD - ./find _IO_puts $leaked_puts_address
 	x/xg $rsp
 4. Find 'puts' call in binary
 	CMD - objdump -d $binary | grep puts
-	# Copy line containing binary location (plt_put) and location in GOT of puts
+	# Copy line containing binary location (plt_put) and location in GOT (# 202f90 <puts@GLIBC_2.2.5>) of puts
 	
 $ plt_put = p64(binary_location)
 $ got_put = p64(GOT_location)
